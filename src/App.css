@@ -30,9 +30,24 @@ body, .app {
   padding: 0 10px 20px;
 }
 
+.bookshelf-empty {
+  margin: 7% auto 0;
+  font-size: 80%;
+  color: #999;
+}
+
 @media (min-width: 600px) {
   .bookshelf {
     padding: 0 20px 40px;
+  }
+  .bookshelf-empty {
+    font-size: 100%;
+  }
+}
+
+@media (min-width: 890px) {
+  .bookshelf-empty {
+    margin: 5% auto 0;
   }
 }
 
