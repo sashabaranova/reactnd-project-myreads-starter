@@ -21,7 +21,7 @@ It has all the shelves:)
 - To put put a book on a different shelf, click on the green controll button on a book and choose the shelf.
 - If you choose _None_, the book will be removed from the main page
 
-* search page
+<search page>
 
 - To navigate to the search page click on the green button at the bottom of your screen.
 - Start typing the name of the book or the author and you will see the selection of books appear on the page.
