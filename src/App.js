@@ -10,13 +10,15 @@ class BooksApp extends React.Component {
   state = {
     books: []
   }
-  //This method is responsible for triggering shelfchange and is passed all the way down to the Book component 
+  //This method is responsible for triggering shelf change and is passed all the way down to the Book component 
   //both via ListShelves(+ its children) and BookSearch
+  //The method updates the shelf value of a book
   changeShelf = (i, bookshelf) => {
     this.setState((prevState) => {
       console.log(bookshelf);
       prevState.books[i].shelf = bookshelf;
       // console.log(this.state.books);
+      BooksAPI.update(prevState.books[i], bookshelf);
       return prevState;
     });
   }
@@ -32,6 +34,12 @@ class BooksApp extends React.Component {
       // console.log(books);
     });
   }
+
+  // componentDidUpdate() {
+  //   this.state.books.map((book) => {
+  //     BooksAPI.update(book, book.shelf).then((books) => this.setState({ books }));
+  //   })
+  // }
 
   render() {
     return (
