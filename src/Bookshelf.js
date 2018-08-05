@@ -10,6 +10,23 @@ import Book from './Book';
 
 class Bookshelf extends Component {
 
+  // this method handles the cases when a book has no authors
+	handleAuthors(arr) {
+		if (typeof arr === 'undefined') {
+		return 'Unknown';
+		}
+		return arr.join(', ');
+	}
+
+  // this method handles the cases when a book has no thumbnail
+
+	handleThumbnail(arr) {
+		if (typeof arr === 'undefined' || arr.thumbnail === 'undefined') {
+		return;
+		}
+		return arr.thumbnail;
+	}
+
 	render() {
 		return (
 			<div className="bookshelf">
@@ -18,8 +35,15 @@ class Bookshelf extends Component {
           <ol className="books-grid">
 						{this.props.books.length === 0 ? (<h3 className="bookshelf-empty">You don't have any books on this shelf yet.</h3>) :
 							this.props.books.map((book) => (
-							<li key={book.title}>
-								<Book shelf={book.shelf} bookId={book.bookId} changeShelf={this.props.changeShelf} bookTitle={book.title} by={book.authors[0]} backgroundImage={book.imageLinks.thumbnail}/>
+							<li key={book.id}>
+								<Book 
+									shelf={book.shelf} 
+									bookId={book.bookId} 
+									changeShelf={this.props.changeShelf} 
+									bookTitle={book.title} 
+									by={this.handleAuthors(book.authors)} 
+									backgroundImage={this.handleThumbnail(book.imageLinks)}
+									page="main"/>
 							</li>
 						))}
           </ol>

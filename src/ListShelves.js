@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import Bookshelf from './Bookshelf';
 
 //ListShelves component is responsible for rendering all bookshelves on the main screen
-//It uses its books prop to filter the books for each of the three shelves and passes a new books array into Bookshelves props
+//It uses its books prop to filter the books for each of the three shelves according to book.shelf value
+//and passes a new books array into Bookshelves props
 
 class ListShelves extends Component {
 	render() {

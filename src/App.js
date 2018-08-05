@@ -16,6 +16,10 @@ class BooksApp extends React.Component {
   changeShelf = (i, bookshelf) => {
     this.setState((prevState) => {
       console.log(bookshelf);
+
+      if (i === undefined) {
+
+      }
       prevState.books[i].shelf = bookshelf;
       // console.log(this.state.books);
       BooksAPI.update(prevState.books[i], bookshelf);
@@ -27,19 +31,33 @@ class BooksApp extends React.Component {
   //set bookID (equal to it's array index) for each book object in the array to be able to get the needed book easily
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
-      for (let i = 0; i <books.length; i++) {
+      for (let i = 0; i < books.length; i++) {
         books[i].bookId = i;
       }
       this.setState({ books });
-      // console.log(books);
+      console.log(books);
     });
   }
 
-  // componentDidUpdate() {
-  //   this.state.books.map((book) => {
-  //     BooksAPI.update(book, book.shelf).then((books) => this.setState({ books }));
-  //   })
-  // }
+  // this method is intended for adding a book from the search page to the shelves
+  // and/or for updating the shelf from the search page
+  addBook = (newBook, bookshelf) => {
+    console.log(newBook, bookshelf);
+    // checking if the book is already in the books array
+    // and if it is, only calling changeShelf to set the new shelf value
+    for (let book of this.state.books) {
+      if (book.id === newBook.id) {
+        this.changeShelf(newBook.bookId, bookshelf);
+        return;
+      }
+    }
+    // setting shelf and bookId for a new book;
+    newBook.bookId = this.state.books.length;
+    newBook.shelf = bookshelf;
+    this.setState((prevState) => prevState.books.push(newBook));
+    //sending the updated info to the backend server
+    BooksAPI.update(newBook, bookshelf);
+  }
 
   render() {
     return (
@@ -49,7 +67,7 @@ class BooksApp extends React.Component {
           <ListShelves books={this.state.books} changeShelf={this.changeShelf.bind(this)}/>
         )}/>
          <Route path='/search' render={() => (
-          <BookSearch books={this.state.books} changeShelf={this.changeShelf.bind(this)}/>
+          <BookSearch books={this.state.books} changeShelf={this.changeShelf.bind(this)} addBook={this.addBook.bind(this)}/>
         )}/>
       </div>
     );
